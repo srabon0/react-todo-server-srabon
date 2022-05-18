@@ -34,6 +34,12 @@ async function run() {
     })
 
     //addTask
+    app.post("/addtask",async(req,res)=>{
+        const task = req.body;
+        console.log(task)
+        const insertConfirmation = await taskCollection.insertOne(task);
+        res.send(insertConfirmation)
+    })
    
    
   } finally {
