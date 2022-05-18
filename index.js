@@ -20,10 +20,20 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    const database = client.db("theCakeGuy");
-    const cakes = database.collection("cakes");
-    const orders = database.collection("orders");
+    const database = client.db("mytodo");
+    const taskCollection = database.collection("task");
+   
     console.log("DB is connected");
+
+    //get all the task
+    app.get('/tasks',async(req,res)=>{
+        const query = {};
+        const tasks = await taskCollection.find(query).toArray()
+        res.send(tasks)
+
+    })
+
+    //addTask
    
    
   } finally {
@@ -33,7 +43,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-  res.send("IT IS THE CAKE GUY SERVER");
+  res.send("It is srabons todo app server");
 });
 
 app.listen(port, () => {
